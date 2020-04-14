@@ -11,7 +11,7 @@ uClient = uReq(page_url)
 # parses html into a soup data structure to traverse html
 page_soup = soup(uClient.read(), "html.parser")
 
-top50  = page_soup.find('div', {'class': 's_c' })
+top50 = page_soup.find('div', {'class': 's_c'})
 print(top50)
 
 # finds each song from the page
@@ -19,19 +19,21 @@ songs = top50.find_all('li', {'class': 'draggable'})
 print(len(songs))
 
 print(songs[0].find('a', {'data-type': 'playSong'}).get_text())
-print(songs[0].find('a', {'data-type': 'url'} ).get_text())
-print(songs[0].find('a', {'class': 'desktop sng_c'} ).get_text())
+print(songs[0].find('a', {'data-type': 'url'}).get_text())
+print(songs[0].find('a', {'class': 'desktop sng_c'}).get_text())
 
 # extracting titles
-titles = [song.find('a', {'data-type': 'playSong'} ).get_text() for song in songs ]
+titles = [song.find('a', {'data-type': 'playSong'}).get_text()
+          for song in songs]
 print(titles)
 
 # extracting artists
-artists = [song.find('a', {'data-type': 'url'} ).get_text() for song in songs ]
+artists = [song.find('a', {'data-type': 'url'}).get_text() for song in songs]
 print(artists)
 
 # extracting time
-time = [song.find('a', {'class': 'desktop sng_c'} ).get_text() for song in songs]
+time = [song.find('a', {'class': 'desktop sng_c'}).get_text()
+        for song in songs]
 print(time)
 
 # creates pandas dataframe
@@ -40,3 +42,5 @@ print(gannaTop50)
 
 # convert pandas dataframe to csv file
 gannaTop50.to_csv('ganna_Top50.csv')
+
+print('Web Scraping Done')
